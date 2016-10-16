@@ -13,7 +13,7 @@ import br.com.guilherme.bahia.meta_1.business.Fruits;
  *
  * @author Guilherme
  */
-public class Excercise3 {
+public class Exercise3 {
     
     abstract class Solution<T extends Food>{
         abstract T getFood();
@@ -34,9 +34,9 @@ public class Excercise3 {
     }
     
     public static void main(String[] args){
-        Solution<Fastfood>  ffFactory = new Excercise3().new FoodFactory();
+        Solution<Fastfood>  ffFactory = new Exercise3().new FoodFactory();
         Fastfood fastfood = ffFactory.getFood();
-        Solution<Fruits> fruitsFactory = new Excercise3().new FruitsFatory();
+        Solution<Fruits> fruitsFactory = new Exercise3().new FruitsFatory();
         Fruits fruits = fruitsFactory.getFood();
         
         System.out.println(fastfood.toString());
