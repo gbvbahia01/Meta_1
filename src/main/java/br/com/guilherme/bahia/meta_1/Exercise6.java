@@ -10,7 +10,7 @@ package br.com.guilherme.bahia.meta_1;
     ( ) The Void class extends the Class class.
     ( ) The Float class extends the Double class.
     ( ) The System class extends the Runtime class
-    (X) The Integer class extends the Number class. TRUE
+    (X) The Integer class extends the Number class.
  * @author Guilherme
  */
 public class Exercise6 {
