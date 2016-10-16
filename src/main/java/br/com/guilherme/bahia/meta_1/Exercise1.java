@@ -7,6 +7,8 @@ package br.com.guilherme.bahia.meta_1;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -38,11 +40,15 @@ import org.apache.commons.lang3.StringUtils;
 public class Exercise1 {
 
     private static final Map<String, String> BRACES = new HashMap<>();
+    private static final List<Pattern> PATTERNS = new ArrayList<>();
 
     static {
         BRACES.put("(", ")");
         BRACES.put("{", "}");
         BRACES.put("[", "]");
+        PATTERNS.add(Pattern.compile("\\{(.*?)\\}"));
+        PATTERNS.add(Pattern.compile("\\[(.*?)\\]"));
+        PATTERNS.add(Pattern.compile("\\((.*?)\\)"));
     }
 
     static String[] Braces(String[] values) {
@@ -85,12 +91,19 @@ public class Exercise1 {
     }
 
     private static boolean evaluate(String value) {
-        for(String open : BRACES.keySet()){
-            String part = StringUtils.trimToEmpty(StringUtils.substringBetween(value, open, BRACES.get(open)));
-            for(String cannotOpen : BRACES.keySet()){
-                for(Character c : part.toCharArray()){
-                    if(StringUtils.equals(c.toString(), cannotOpen)
-                            || StringUtils.equals(c.toString(),  BRACES.get(cannotOpen))){
+        if (!isEmptyBraces(value)) {
+            for (Pattern pattern : PATTERNS) {
+                Matcher matcher = pattern.matcher(value);
+                if (matcher.find()) {
+                    String group = matcher.group();
+                    if(!evaluate(StringUtils.substring(group, 1, group.length() - 1))){
+                        return false;
+                    }else{
+                        continue;
+                    }
+                }
+                for (String key : BRACES.keySet()) {
+                    if (StringUtils.contains(value, key)) {
                         return false;
                     }
                 }
@@ -99,4 +112,30 @@ public class Exercise1 {
         return true;
     }
 
+    /*
+    private static boolean evaluate(String value) {
+        for(String open : BRACES.keySet()){
+            String part = StringUtils.trimToEmpty(StringUtils.substringBetween(value, open, BRACES.get(open)));
+            for(String brace : BRACES.keySet()){
+                String part2 = StringUtils.substringBetween(part, brace, BRACES.get(brace));
+                for(Character c : part.toCharArray()){
+                    if((StringUtils.equals(c.toString(), brace)
+                            || StringUtils.equals(c.toString(),  BRACES.get(brace)))
+                            && part2 == null){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+     */
+    private static boolean isEmptyBraces(String value) {
+        for (String key : BRACES.keySet()) {
+            if (StringUtils.equals(value, key + BRACES.get(key))) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

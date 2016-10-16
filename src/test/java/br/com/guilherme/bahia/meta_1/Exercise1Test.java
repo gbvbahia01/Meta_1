@@ -37,6 +37,11 @@ public class Exercise1Test {
         String[] expResult2 = {"YES", "NO"};
         result = Exercise1.Braces(values2);
         assertArrayEquals(expResult2, result);
+        
+        String[] values3 = {"{1 + [b + 3](cde)}","{(2 + 3) + 3 * [4 + 2]}"};
+        String[] expResult3 = {"YES", "YES"};
+        result = Exercise1.Braces(values2);
+        assertArrayEquals(expResult2, result);
     }
 
 
