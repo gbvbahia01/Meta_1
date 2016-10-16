@@ -112,24 +112,6 @@ public class Exercise1 {
         return true;
     }
 
-    /*
-    private static boolean evaluate(String value) {
-        for(String open : BRACES.keySet()){
-            String part = StringUtils.trimToEmpty(StringUtils.substringBetween(value, open, BRACES.get(open)));
-            for(String brace : BRACES.keySet()){
-                String part2 = StringUtils.substringBetween(part, brace, BRACES.get(brace));
-                for(Character c : part.toCharArray()){
-                    if((StringUtils.equals(c.toString(), brace)
-                            || StringUtils.equals(c.toString(),  BRACES.get(brace)))
-                            && part2 == null){
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-     */
     private static boolean isEmptyBraces(String value) {
         for (String key : BRACES.keySet()) {
             if (StringUtils.equals(value, key + BRACES.get(key))) {
